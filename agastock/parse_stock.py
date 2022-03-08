@@ -16,12 +16,24 @@ from stock_twn import StockTwn
 import agalog
 
 #other module
-import time, sys, os, traceback, math, fcntl, logging
+import time, sys, os, traceback, math, logging
 from datetime import date, datetime, timedelta
+
+try:
+    # linux
+    import fcntl
+except:
+    # windows
+    import lib.fcntlock as fcntl
 
 
 #=========== PARAMETER ============    
-_PATH_LOCK_FILE= '/tmp/parse_stock_%s.lock'
+import platform
+if platform.system() == "Windows":
+    # 移除 '/tmp/parse_stock_%s.lock' 的第一個 '/' 否則會指到根目錄下的 'tmp'
+    _PATH_LOCK_FILE= os.path.join(os.getcwd(), '/tmp/parse_stock_%s.lock'[1:])
+else:
+    _PATH_LOCK_FILE= '/tmp/parse_stock_%s.lock'
 
 
 #============ FUNCTION ============   
