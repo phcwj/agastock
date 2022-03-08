@@ -35,7 +35,9 @@ from pytrends.exceptions import ResponseError
 from functools import wraps 
 import yfinance as yf
 
-
+# 指定不需要 GUI 的 backend(Agg, Cairo, PS, PDF, SVG)
+# Windows 系統需要加入這個設定
+plt.switch_backend('agg')
 #=========== Decorator QueryHandler ============
 #針對處理股票的Query系列函式，設計三個 Decorator，具有以下功能：
 # 1, ticker loop
